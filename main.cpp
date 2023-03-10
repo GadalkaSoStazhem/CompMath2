@@ -22,12 +22,15 @@ int main() {
             cout << "Введите номер примера (от 1 до 4):" << endl;
             int number = io.get_example(task);
             auto equation = equations.get_equation(number);
+            cout << "Укажите точность вычислений" << endl;
+            double eps = io.get_accuracy();
+
             double a, b;
             cout << "Укажите интервал [a, b]" << endl;
             cin >> a >> b;
-            cout << "Укажите точность вычислений" << endl;
-            double eps = io.get_accuracy();
+            cout << "Метод половинного деления:" << endl;
             solve.bisection(equation, a, b, eps);
+            cout << "\n" << "Метод хорд: " << endl;
             solve.secant(equation, a, b, eps);
             break;
         }
@@ -40,7 +43,7 @@ int main() {
             cout << "Введите начальные приближения корней" << endl;
             double a, b;
             cin >> a >> b;
-            solve.get_ans(number, a, b, eps);
+            solve.newton_method(number, a, b, eps);
             break;
         }
 

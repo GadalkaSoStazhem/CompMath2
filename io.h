@@ -49,7 +49,18 @@ public:
         }
         return eps;
     }
-
+    void print_answer(double a, double b, double answer){
+        if (answer == NULL)
+            cout << "На интервале [" << a << ", " << b << "] корней нет" << endl;
+        else
+            cout << "Корень на интервале [" << a << ", " << b <<"]:  " << answer << endl;
+    }
+    void print_answers(double roots[], double eps){
+        cout << "Найденные корни СНАУ: " << endl;
+        for (int i = 0; i < 2; i++){
+            cout << "x" << i << ":  " << round(roots[i] / eps) * eps << endl;
+        }
+    }
 };
 
 

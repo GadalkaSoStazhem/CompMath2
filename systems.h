@@ -11,7 +11,7 @@
 using namespace std;
 class systems {
 public:
-    void get_ans(int number, double a, double b, double eps){
+    void newton_method(int number, double a, double b, double eps){
         int cnt = 0;
         bool flag = true;
         auto syst = eq.get_system(number);
@@ -30,24 +30,24 @@ public:
             calc.get_triangle(linear_system, syst.size());
             deltas = calc.get_answers(linear_system, syst.size());
             cnt ++;
-            if (cnt > 10000){
+            if (cnt > 1000000){
                 cout << "Неправильно выбраны начальные приближения корней" << endl;
                 flag = false;
+                break;
             }
 
         }
         roots[0] += deltas[0];
         roots[1] += deltas[1];
         if (flag){
-            cout << "Найденные корни СНАУ: " << endl;
-            cout << "x1 " << round(roots[0] / eps) * eps << endl;
-            cout << "x2 " << round(roots[1] / eps) * eps << endl;
+            io.print_answers(roots, eps);
         }
 
     }
 private:
     equations eq;
     linear calc;
+    io io;
     double **linear_system;
     void set_lin_system(double **lin_system, double **ders, double roots[], vector<function<double(double, double)>> syst){
         linear_system = new double * [syst.size()];

@@ -32,12 +32,9 @@ public:
                     break;
             }
         }
-        if (answer == NULL)
-            cout << "На интервале [" << st_a << ", " << st_b << "] корней нет" << endl;
-        else
-            cout <<"Корень на интервале [" << st_a << ", " << st_b << "], полученный методом половинного деления: " << answer << endl;
-
+        io.print_answer(st_a, st_b, answer);
     }
+
     void secant (function<double(double)> func, double a, double b, double eps){
         double answer = NULL;
         double st_a = a;
@@ -68,11 +65,11 @@ public:
                     break;
             }
         }
-        if (answer == NULL)
-            cout << "На интервале [" << st_a << ", " << st_b << "] корней нет" << endl;
-        else
-            cout << "Корень на интервале [" << st_a << ", " << st_b <<"], полученный методом хорд: " << answer << endl;
+        io.print_answer(st_a, st_b, answer);
+
     }
+private:
+    io io;
 };
 
 
