@@ -51,16 +51,16 @@ public:
         }
     }
 
-    double ** get_derivatives (vector<function<double(double, double)>> system, double h, double deltas[]){
+    double ** get_derivatives (vector<function<double(double, double)>> system, double h, double roots[]){
         double **mas;
         mas = new double *[system.size()];
         for (int i = 0; i < system.size(); i++){
             mas[i] = new double [system.size() + 1];
         }
-        mas[0][0] = (system[0](deltas[0] + h, deltas[1]) - system[0](deltas[0], deltas[1])) / h;
-        mas[0][1] = (system[0](deltas[0], deltas[1] + h) - system[0](deltas[0], deltas[1])) / h;
-        mas[1][0] = (system[1](deltas[0] + h, deltas[1]) - system[1](deltas[0], deltas[1])) / h;
-        mas[1][1] = (system[1](deltas[0], deltas[1] + h) - system[1](deltas[0], deltas[1])) / h;
+        mas[0][0] = (system[0](roots[0] + h, roots[1]) - system[0](roots[0], roots[1])) / h;
+        mas[0][1] = (system[0](roots[0], roots[1] + h) - system[0](roots[0], roots[1])) / h;
+        mas[1][0] = (system[1](roots[0] + h, roots[1]) - system[1](roots[0], roots[1])) / h;
+        mas[1][1] = (system[1](roots[0], roots[1] + h) - system[1](roots[0], roots[1])) / h;
         if (mas[0][0] * mas[1][1] - mas[0][1] * mas[1][0] == 0){
             cout << "Якобиан равен 0, метод не применим" << endl;
             return NULL;

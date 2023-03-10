@@ -15,20 +15,20 @@ public:
         int cnt = 0;
         bool flag = true;
         auto syst = eq.get_system(number);
-        double deltas[] = {a, b};
-        auto ders = eq.get_derivatives(syst, eps, deltas);
-        set_lin_system(linear_system, ders, deltas, syst);
+        double roots[] = {a, b};
+        auto ders = eq.get_derivatives(syst, eps, roots);
+        set_lin_system(linear_system, ders, roots, syst);
 
         calc.get_triangle(linear_system, syst.size());
-        double* epses = new double [syst.size()];
-        epses = calc.get_answers(linear_system, syst.size());
+        double* deltas = new double [syst.size()];
+        deltas = calc.get_answers(linear_system, syst.size());
 
-        while (!(max(abs(epses[0]), abs(epses[1])) <= eps)){
-            deltas[0] += epses[0];
-            deltas[1] += epses[1];
-            set_lin_system(linear_system, ders, deltas, syst);
+        while (!(max(abs(deltas[0]), abs(deltas[1])) <= eps)){
+            roots[0] += deltas[0];
+            roots[1] += deltas[1];
+            set_lin_system(linear_system, ders, roots, syst);
             calc.get_triangle(linear_system, syst.size());
-            epses = calc.get_answers(linear_system, syst.size());
+            deltas = calc.get_answers(linear_system, syst.size());
             cnt ++;
             if (cnt > 10000){
                 cout << "Неправильно выбраны начальные приближения корней" << endl;
@@ -36,12 +36,12 @@ public:
             }
 
         }
-        deltas[0] += epses[0];
-        deltas[1] += epses[1];
+        roots[0] += deltas[0];
+        roots[1] += deltas[1];
         if (flag){
             cout << "Найденные корни СНАУ: " << endl;
-            cout << "x1 " << round(deltas[0] / eps) * eps << endl;
-            cout << "x2 " << round(deltas[1] / eps) * eps << endl;
+            cout << "x1 " << round(roots[0] / eps) * eps << endl;
+            cout << "x2 " << round(roots[1] / eps) * eps << endl;
         }
 
     }
@@ -49,7 +49,7 @@ private:
     equations eq;
     linear calc;
     double **linear_system;
-    void set_lin_system(double **lin_system, double **ders, double deltas[], vector<function<double(double, double)>> syst){
+    void set_lin_system(double **lin_system, double **ders, double roots[], vector<function<double(double, double)>> syst){
         linear_system = new double * [syst.size()];
         for (int i = 0; i < syst.size(); i++){
             linear_system[i] = new double [syst.size() + 1];
@@ -58,7 +58,7 @@ private:
                     linear_system[i][j] = ders[i][j];
                 }
                 else {
-                    linear_system[i][j] = (-1) * syst[i](deltas[0], deltas[1]);
+                    linear_system[i][j] = (-1) * syst[i](roots[0], roots[1]);
                 }
             }
         }
