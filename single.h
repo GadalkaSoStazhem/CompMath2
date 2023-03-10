@@ -31,8 +31,8 @@ public:
                 else {
                     if (func(tmp) * func(b) < 0)
                         a = tmp;
-                    /*else
-                        break;*/
+                    else
+                        break;
                 }
             }
             if (answer == NULL)
