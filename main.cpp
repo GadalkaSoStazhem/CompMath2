@@ -23,7 +23,7 @@ int main() {
             int number = io.get_example(task);
             auto equation = equations.get_equation(number);
             double a, b;
-            cout << "Укажите интервал [a, b], учитывая, что f(a)*f(b) < 0 " << endl;
+            cout << "Укажите интервал [a, b]" << endl;
             cin >> a >> b;
             cout << "Укажите точность вычислений" << endl;
             double eps = io.get_accuracy();
