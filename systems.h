@@ -7,11 +7,14 @@
 #include "equations.h"
 #include "linear.h"
 
+#include <ctime>
 #include <iostream>
+
 using namespace std;
 class systems {
 public:
     void newton_method(int number, double a, double b, double eps){
+        clock_t begin = clock();
         int cnt = 0;
         bool flag = true;
         auto syst = eq.get_system(number);
@@ -39,9 +42,11 @@ public:
         }
         roots[0] += deltas[0];
         roots[1] += deltas[1];
+        double time = (clock() - begin) / (double) CLOCKS_PER_SEC;
         if (flag){
             io.print_answers(roots, eps);
         }
+        cout << "Время выполнения: " << time << endl;
 
     }
 private:

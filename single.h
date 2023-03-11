@@ -8,6 +8,7 @@
 #include "equations.h"
 
 #include <cmath>
+#include <ctime>
 #include <iostream>
 
 using namespace std;
@@ -18,6 +19,8 @@ public:
         double answer = NULL;
         double st_a = a;
         double st_b = b;
+
+        clock_t begin = clock();
 
         while (abs(a - b) > eps){
             double tmp = (a + b) / 2;
@@ -32,13 +35,17 @@ public:
                     break;
             }
         }
+        double time = (clock() - begin) / (double) CLOCKS_PER_SEC;
         io.print_answer(st_a, st_b, answer);
+        cout << "Время выполнения: " << time << endl;
     }
 
     void secant (function<double(double)> func, double a, double b, double eps){
         double answer = NULL;
         double st_a = a;
         double st_b = b;
+
+        clock_t begin = clock();
 
         while (abs(a - b) > eps){
             double h = NULL;
@@ -65,8 +72,9 @@ public:
                     break;
             }
         }
+        double time = (clock() - begin) / (double) CLOCKS_PER_SEC;
         io.print_answer(st_a, st_b, answer);
-
+        cout << "Время выполнения: " << time << endl;
     }
 private:
     io io;
